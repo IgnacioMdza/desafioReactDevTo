@@ -26,7 +26,7 @@ export default function AsideRightHome () {
                             <ElipsisSvg className='p-[4px] scale-[150%] cursor-pointer fill-neutral-600 hover:fill-[rgb(59,73,223)] hover:bg-indigo-300/25 rounded-md'/>
                         </div>
                         <img src={post.postImageURL} alt='WebAssembly' className='rounded-lg object-cover h-[170px]'/>
-                        <Link to={`/Post?postId=${post._id}`} className='underline font-bold text-[rgb(59,73,223)] text-lg'>{post.postTitle}</Link>
+                        <Link to={`/Post/${post._id}`} className='underline font-bold text-[rgb(59,73,223)] text-lg'>{post.postTitle}</Link>
                         <p className='text-md'>{post.postContent.slice(0, 170)} ...</p>
                     </article>
                     : null

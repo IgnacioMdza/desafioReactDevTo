@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 import { ReactComponent as TagSvg } from '../assets/tag.svg';
 import { ReactComponent as ElipsisSvg } from '../assets/elipsis.svg';
@@ -32,8 +33,21 @@ interface EditPost {
 }
 
 export default function EditPost () {
+    const [isLoading, setIsLoading] = useState(true);
+    const [post, setPost] = useState<any>([])
+
     const { postid } = useParams()
     console.log(postid)
+
+    useEffect(() => {
+        fetch(`http://localhost:8080/posts/${postid}`)
+        .then(response => response.json())
+        .then(response => {
+            setPost(response.data);
+            setIsLoading(false)
+        })
+    }, [postid])
+
 
     const token = localStorage.getItem("token") || "";
     const payload = token.split(".")[1];
@@ -53,20 +67,28 @@ export default function EditPost () {
         const postAuthor = JSON.parse(destructuracion).userName;
     
         function onSubmit( data: EditPost ){
+            if(data.postContent === '') { data.postContent = post.postContent }
+            if(data.postImageURL === '') { data.postImageURL = post.postImageURL }
+            if(data.postTitle === '') { data.postTitle = post.postTitle  }
+            if(data.postTags === '') { data.postTags = post.postTags.join(' ') }
+            if(data.postReadTime === '') { data.postReadTime = post.postReadTime }
+
             fetch(`http://localhost:8080/posts/${postid}`, {
             method: 'PATCH',
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
             body: JSON.stringify({
                 postAuthor: postAuthor,
                 postAuthorId: postAuthorId,
+                postRelevance: Math.ceil(Math.random() * 10),
+                postDateDay: new Date().toDateString().split(" ").slice(2, 3)[0],
+                postDateMonth: new Date().toDateString().split(" ").slice(1, 2)[0],
+
+                
                 postContent: data.postContent,
                 postImageURL: data.postImageURL,
                 postTitle: data.postTitle,
                 postTags: data.postTags.split(" ").slice(0, 4),
                 postReadTime: data.postReadTime,
-                postRelevance: Math.ceil(Math.random() * 10),
-                postDateDay: new Date().toDateString().split(" ").slice(2, 3)[0],
-                postDateMonth: new Date().toDateString().split(" ").slice(1, 2)[0],
             }),
             })
             .then((response) => response.json())
@@ -79,6 +101,11 @@ export default function EditPost () {
                 alert("falló el fetch");
             });
         }
+    if (isLoading) { // ⬅️ si está cargando, mostramos un texto que lo indique
+        return (
+            null
+        );
+    }
 
     return (
         <>  
@@ -88,7 +115,7 @@ export default function EditPost () {
                         <div className='flex gap-4 items-center justify-between sm:w-3/5 w-full'>
                             <div className='flex items-center gap-3'>
                                 <Link to='/'><img src='https://dev-to-uploads.s3.amazonaws.com/uploads/logos/resized_logo_UQww2soKuUsjaOGNB38o.png' alt='dev' className='h-[40px] min-w-fit'/></Link>
-                                <p className='font-semibold hidden min-[350px]:inline-flex'>Create Post</p>
+                                <p className='font-semibold hidden min-[350px]:inline-flex'>Edit Post</p>
                             </div>
                             <div className='flex items-center gap-3 max-[400px]:gap-1'>
                                 <a className='p-2 hover:text-[rgb(59,73,223)] hover:bg-indigo-300/30 rounded-md cursor-pointer'>Edit</a>
@@ -109,30 +136,30 @@ export default function EditPost () {
                             <a className='p-2 border-2 border-neutral-300 rounded-md cursor-pointer text-center max-w-fit'>Add a cover image</a>
                             <input
                             type="text"
-                            placeholder='URL...'
+                            placeholder={post.postImageURL}
                             className="outline-none bg-white border-b border-neutral-300 rounded text-black w-full placeholder-neutral-500"
-                            {...register('postImageURL', { required: {value: true, message: 'URL de imagen requerida'}})}
+                            {...register('postImageURL', { required: {value: false, message: 'URL de imagen requerida'}})}
                             />
                             { errors.postImageURL && <p className='text-red-500 text-sm'>{ errors.postImageURL.message }</p>}
                             <input
                             type="number"
-                            placeholder='Read time on minutes'
+                            placeholder={post.postReadTime}
                             className="outline-none bg-white border-b border-neutral-300 rounded text-black w-full pt-4 placeholder-neutral-500"
-                            {...register('postReadTime', { required: {value: true, message: 'Tiempo de lectura requerido'}})}
+                            {...register('postReadTime', { required: {value: false, message: 'Tiempo de lectura requerido'}})}
                             />
                             { errors.postReadTime && <p className='text-red-500 text-sm'>{ errors.postReadTime.message }</p>}
                             <input
                             type="text"
-                            placeholder='New post title here...'
+                            placeholder={post.postTitle}
                             className="outline-none bg-white max-[400px]:text-2xl text-4xl sm:text-5xl font-bold border-neutral-300 rounded text-black w-full pt-4 placeholder-neutral-600"
-                            {...register('postTitle', { required: {value: true, message: 'Título requerido'}})}
+                            {...register('postTitle', { required: {value: false, message: 'Título requerido'}})}
                             />
                             { errors.postTitle && <p className='text-red-500 text-sm'>{ errors.postTitle.message }</p>}
                             <input
                             type="text"
-                            placeholder='Add up to 4 tags'
+                            placeholder={ `#${post.postTags.join(' #')}` }
                             className="outline-none bg-white  border-neutral-300 rounded text-black w-full pt-4 placeholder-neutral-500"
-                            {...register('postTags', { required: {value: true, message: 'Tags requeridos'}})}
+                            {...register('postTags', { required: {value: false, message: 'Tags requeridos'}})}
                             />
                             { errors.postTags && <p className='text-red-500 text-sm'>{ errors.postTags.message }</p>}
                         </div>
@@ -156,9 +183,9 @@ export default function EditPost () {
                         <div>
                             <textarea
                             type="text"
-                            placeholder='Write your content here...'
+                            placeholder={post.postContent}
                             className="outline-none bg-white text-xl border-neutral-300 rounded text-black w-full pt-4 placeholder-neutral-500 font-light h-[250px]"
-                            {...register('postContent', { required: {value: true, message: 'Contenido del post requerido'}})}
+                            {...register('postContent', { required: {value: false, message: 'Contenido del post requerido'}})}
                             />
                             { errors.postContent && <p className='text-red-500 text-sm'>{ errors.postContent.message }</p>}
                         </div>

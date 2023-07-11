@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     title: string
@@ -16,12 +19,30 @@ interface Props {
 }
 
 export default function PostCardContent (props: Props) {
+    const navigate = useNavigate()
+    const { postid } = useParams()
     const [userAuthor, setUserAuthor] = useState<any>([])
 
     const token = localStorage.getItem("token") || "";
     const payload = token.split(".")[1];
     const destructuracion = atob(payload);
     const postAuthorId = JSON.parse(destructuracion).id;
+
+    function deletePost () {
+        fetch(`http://localhost:8080/posts/${postid}`, {
+        method: 'DELETE',
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            console.log("response: ", response);
+            toast.warning("Post eliminado", {autoClose: 2000,});
+            setTimeout(() => navigate("/"), 2000); 
+        })
+        .catch(() => {
+            toast.error("falló el fetch");
+        });
+    }
 
     useEffect(() => {
         fetch(`http://localhost:8080/users/${props.authorId}`)
@@ -34,6 +55,7 @@ export default function PostCardContent (props: Props) {
 
     return (
         <article className='bg-white flex flex-col rounded-lg border'>
+            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
             <img src={props.image} alt={props.title} className='rounded-t-lg h-[450px] object-cover'/>
             <div className='py-5 px-3 flex flex-col gap-4 md:px-5 lg:px-10'>
                 <div className='flex gap-2 items-center justify-between'>
@@ -52,7 +74,7 @@ export default function PostCardContent (props: Props) {
                         }
                         {
                             postAuthorId === props.authorId
-                            ? <button className='bg-[rgb(240,240,240)] py-1 px-2 rounded-md text-black border border-red-700 hover:bg-red-700 hover:text-white'>Delete</button>
+                            ? <button onClick={deletePost} className='bg-[rgb(240,240,240)] py-1 px-2 rounded-md text-black border border-red-700 hover:bg-red-700 hover:text-white'>Delete</button>
                             :  null
                         }
                     </div>
