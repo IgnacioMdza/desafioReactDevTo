@@ -19,13 +19,13 @@ export default function MoreFrom (props:Props) {
             {
                 props.posts.filter((item) => item.postAuthorId === props.authorId).map((post, index) => {
                     return(
-                        <Link to={`/Post/${post._id}`} className='border-t p-3.5 flex flex-col'>
+                        <Link key={`itemMoreFromLink-${index}`} to={`/Post/${post._id}`} className='border-t p-3.5 flex flex-col'>
                             <p className='text-sm hover:text-[rgb(59,73,223)]'>{post.postTitle}</p>
                             <div className='flex gap-3'>
                             {
                                 post.postTags.map((tag, index) => {
                                     return(
-                                        <p className='text-xs text-neutral-600'>#{tag}</p>
+                                        <p key={`pTags-${index}`}  className='text-xs text-neutral-600'>#{tag}</p>
                                     )
                                 })
                             }

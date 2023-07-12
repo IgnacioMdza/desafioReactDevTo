@@ -11,7 +11,7 @@ interface Props {
     authorImage?: string;
     authorName: string;
     readTime: number;
-    tags: any;
+    tags: [];
     likes?: number;
     authorId?: string;
     id: string;

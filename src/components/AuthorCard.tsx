@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { authorFetch } from "../data/authorFetch";
 
 interface Props {
     authorId: string;

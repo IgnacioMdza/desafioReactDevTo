@@ -9,10 +9,7 @@ export default function NavBarLoged () {
     const token = localStorage.getItem("token") || "";
     const payload = token.split(".")[1];
     const destructuracion = atob(payload);
-    const id = JSON.parse(destructuracion).id;
     const userImage = JSON.parse(destructuracion).userImage;
-    const userNickName = JSON.parse(destructuracion).userNickName;
-    const userName = JSON.parse(destructuracion).userName;
 
     const logout = () => {
         localStorage.clear();

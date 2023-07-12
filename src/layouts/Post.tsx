@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react"
-import { Outlet, Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+
+import { Outlet } from 'react-router-dom'
 
 import Footer from '../components/Footer';
 import NavBarLoged from '../components/NavBarLoged';
@@ -25,9 +23,7 @@ export default function  Post () {
                             <Outlet/> 
                         </section>
                         <aside className='hidden md:table-column'>
-                            <div className='flex flex-col gap-4'>
-                                <AsideRightPost/>
-                            </div>
+                            <AsideRightPost/>
                         </aside>
                     </div>
                 </main>

@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import clsx from "clsx";
 
 import { ReactComponent as TagSvg } from '../assets/tag.svg';
 import { ReactComponent as ElipsisSvg } from '../assets/elipsis.svg';

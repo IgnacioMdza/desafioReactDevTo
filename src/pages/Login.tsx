@@ -2,7 +2,6 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
-import { useEffect } from 'react';
 
 import { ReactComponent as AppleSvg } from '../assets/apple.svg';
 import { ReactComponent as ForemSvg } from '../assets/forem.svg';
