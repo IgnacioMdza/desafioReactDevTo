@@ -17,24 +17,24 @@ import { ReactComponent as HSvg } from '../assets/newPost/hSvg.svg';
 import { ReactComponent as MarksSvg } from '../assets/newPost/marks.svg';
 import { ReactComponent as FrameSvg } from '../assets/newPost/frame.svg';
 
-interface EditPost {
-    postAuthor?: string;
-    postAuthorId?: string;
-    postContent?: string;
-    postDateDay?: string;
-    postDateMonth?: string;
-    postImageURL?: string;
-    postReadTime?: number;
-    PostRelevance?: number;
-    postTags?: any;
-    postTitle?: string;
-    postLikes?: any;
-    postComments?: any
+interface IntEditPost {
+    postAuthorId: string,
+    postAuthor: string,
+    _id: string,
+    postTitle: string,
+    postTags: any,
+    postReadTime: number,
+    postDateDay: string,
+    postDateMonth: string,
+    postContent: string,
+    postImageURL: string,
+    postLikes?: {likeCounter: number},
+    postComments?: [],
 }
 
 export default function EditPost () {
     const [isLoading, setIsLoading] = useState(true);
-    const [post, setPost] = useState<any>([])
+    const [post, setPost] = useState<IntEditPost>({} as IntEditPost)
 
     const { postid } = useParams()
     console.log(postid)
@@ -50,28 +50,25 @@ export default function EditPost () {
 
 
     const token = localStorage.getItem("token") || "";
-    const payload = token.split(".")[1];
-    const destructuracion = atob(payload);
-    const postAuthorId = JSON.parse(destructuracion).id;
 
     if(token === ''){
         window.location.replace("/Login");
     } else {
         const navigate = useNavigate()
-        const { handleSubmit, register, formState: { errors } } = useForm<EditPost>();
+        const { handleSubmit, register } = useForm<IntEditPost>();
     
         const token = localStorage.getItem("token") || "";
         const payload = token.split(".")[1];
         const destructuracion = atob(payload);
-        const postAuthorId = JSON.parse(destructuracion).id;
-        const postAuthor = JSON.parse(destructuracion).userName;
+        const postAuthorId:string = JSON.parse(destructuracion).id;
+        const postAuthor: string = JSON.parse(destructuracion).userName;
     
-        function onSubmit( data: EditPost ){
+        function onSubmit( data: IntEditPost ){
             if(data.postContent === '') { data.postContent = post.postContent }
             if(data.postImageURL === '') { data.postImageURL = post.postImageURL }
             if(data.postTitle === '') { data.postTitle = post.postTitle  }
-            if(data.postTags === '') { data.postTags = post.postTags.join(' ') }
-            if(data.postReadTime === '') { data.postReadTime = post.postReadTime }
+            if(data.postTags === null) { data.postTags = post.postTags.join(' ') }
+            if(data.postReadTime === null) { data.postReadTime = post.postReadTime }
 
             fetch(`http://localhost:8080/posts/${postid}`, {
             method: 'PATCH',
@@ -83,7 +80,6 @@ export default function EditPost () {
                 postDateDay: new Date().toDateString().split(" ").slice(2, 3)[0],
                 postDateMonth: new Date().toDateString().split(" ").slice(1, 2)[0],
 
-                
                 postContent: data.postContent,
                 postImageURL: data.postImageURL,
                 postTitle: data.postTitle,
@@ -140,28 +136,24 @@ export default function EditPost () {
                             className="outline-none bg-white border-b border-neutral-300 rounded text-black w-full placeholder-neutral-500"
                             {...register('postImageURL', { required: {value: false, message: 'URL de imagen requerida'}})}
                             />
-                            { errors.postImageURL && <p className='text-red-500 text-sm'>{ errors.postImageURL.message }</p>}
                             <input
                             type="number"
-                            placeholder={post.postReadTime}
+                            placeholder={post.postReadTime.toString()}
                             className="outline-none bg-white border-b border-neutral-300 rounded text-black w-full pt-4 placeholder-neutral-500"
                             {...register('postReadTime', { required: {value: false, message: 'Tiempo de lectura requerido'}})}
                             />
-                            { errors.postReadTime && <p className='text-red-500 text-sm'>{ errors.postReadTime.message }</p>}
                             <input
                             type="text"
                             placeholder={post.postTitle}
                             className="outline-none bg-white max-[400px]:text-2xl text-4xl sm:text-5xl font-bold border-neutral-300 rounded text-black w-full pt-4 placeholder-neutral-600"
                             {...register('postTitle', { required: {value: false, message: 'Título requerido'}})}
                             />
-                            { errors.postTitle && <p className='text-red-500 text-sm'>{ errors.postTitle.message }</p>}
                             <input
                             type="text"
                             placeholder={ `#${post.postTags.join(' #')}` }
                             className="outline-none bg-white  border-neutral-300 rounded text-black w-full pt-4 placeholder-neutral-500"
                             {...register('postTags', { required: {value: false, message: 'Tags requeridos'}})}
                             />
-                            { errors.postTags && <p className='text-red-500 text-sm'>{ errors.postTags.message }</p>}
                         </div>
                     </div>
                     <div className='bg-neutral-200/50 h-14 flex px-4 py-2 sm:px-[48px] sm:py-[24px] items-center justify-between border-s border-e w-full'>
@@ -182,12 +174,10 @@ export default function EditPost () {
                     <div className='bg-white w-full px-4 py-2 sm:px-[48px] sm:py-[24px] border-b border-s border-e rounded-b-lg'>
                         <div>
                             <textarea
-                            type="text"
                             placeholder={post.postContent}
                             className="outline-none bg-white text-xl border-neutral-300 rounded text-black w-full pt-4 placeholder-neutral-500 font-light h-[250px]"
                             {...register('postContent', { required: {value: false, message: 'Contenido del post requerido'}})}
                             />
-                            { errors.postContent && <p className='text-red-500 text-sm'>{ errors.postContent.message }</p>}
                         </div>
                     </div>
                     <div className='my-5 flex gap-3 items-center flex-col sm:flex-row'>

@@ -16,18 +16,18 @@ import { ReactComponent as MarksSvg } from '../assets/newPost/marks.svg';
 import { ReactComponent as FrameSvg } from '../assets/newPost/frame.svg';
 
 interface NewPost {
-    postAuthor: string;
-    postAuthorId: string;
-    postContent: string;
-    postDateDay: string;
-    postDateMonth: string;
-    postImageURL: string;
-    postReadTime: number;
-    PostRelevance: number;
-    postTags: any;
-    postTitle: string;
-    postLikes?: any;
-    postComments?: any
+    postAuthorId: string,
+    postAuthor: string,
+    _id: string,
+    postTitle: string,
+    postTags: string,
+    postReadTime: number,
+    postDateDay: string,
+    postDateMonth: string,
+    postContent: string,
+    postImageURL?: string,
+    postLikes: {likeCounter: number},
+    postRelevance?: number,
 }
 
 export default function NewPost () {
@@ -147,7 +147,6 @@ export default function NewPost () {
                     <div className='bg-white w-full px-4 py-2 sm:px-[48px] sm:py-[24px] border-b border-s border-e rounded-b-lg'>
                         <div>
                             <textarea
-                            type="text"
                             placeholder='Write your content here...'
                             className="outline-none bg-white text-xl border-neutral-300 rounded text-black w-full pt-4 placeholder-neutral-500 font-light h-[250px]"
                             {...register('postContent', { required: {value: true, message: 'Contenido del post requerido'}})}

@@ -1,9 +1,17 @@
+
 import { Link } from "react-router-dom";
 
+interface intPostList {
+    postAuthorId: string,
+    postAuthor: string,
+    _id: string,
+    postTitle: string,
+    postTags: []
+}
 interface Props {
     authorId: string;
     author: string
-    posts: []
+    posts: intPostList[]
 }
 
 export default function MoreFrom (props:Props) {

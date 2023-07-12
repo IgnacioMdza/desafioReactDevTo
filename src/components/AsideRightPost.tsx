@@ -1,12 +1,21 @@
+
 import AuthorCard from "./AuthorCard"
 import { useParams } from "react-router-dom"
 import { useState } from "react"
 import { postsFetch } from "../data/postsFetch"
 import MoreFrom from "./MoreFrom"
 
+interface intPostList {
+    postAuthorId: string,
+    postAuthor: string,
+    _id: string,
+    postTitle: string,
+    postTags: []
+}
+
 export default function AsideRightPost () {
     const { postid } = useParams()
-    const [postsList, setPostsList] = useState<any>([])
+    const [postsList, setPostsList] = useState<intPostList[]>([])
     postsFetch(setPostsList)
 
     return (

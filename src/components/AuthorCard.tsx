@@ -1,11 +1,22 @@
+
 import { useEffect, useState } from "react";
 
 interface Props {
     authorId: string;
 }
 
+interface intUser {
+    userImage: string;
+    userLocation: string;
+    userName: string;
+    userLastname: string;
+    userEducation: string;
+    userJoined: string;
+}
+
+
 export default function AuthorCard (props: Props) {
-    const [userAuthor, setUserAuthor] = useState<any>({})
+    const [userAuthor, setUserAuthor] = useState<intUser>({} as intUser)
 
     useEffect(() => {
         fetch(`http://localhost:8080/users/${props.authorId}`)

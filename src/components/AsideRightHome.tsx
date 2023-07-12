@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -5,9 +6,19 @@ import { ReactComponent as ElipsisSvg } from '../assets/elipsis.svg';
 
 import { postsFetch } from "../data/postsFetch";
 
+interface intPostList {
+    postReadTime: number,
+    postAuthor: string,
+    postContent: string,
+    postImageURL: string,
+    _id: string,
+    postTags: [],
+    postTitle: string,
+    postComments: []
+}
 
 export default function AsideRightHome () {
-    const [postsList, setPostsList] = useState<any>([])
+    const [postsList, setPostsList] = useState<intPostList[]>([])
     postsFetch(setPostsList)
 
     // const topPost = [...postsList].sort(function(a, b) {return a.postReadTime - b.postReadTime}).shift()

@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react';
 
 import { ReactComponent as SearchSvg } from '../assets/search.svg';
 import { ReactComponent as BellSvg } from '../assets/bell.svg';
@@ -9,7 +8,7 @@ export default function NavBarLoged () {
     const token = localStorage.getItem("token") || "";
     const payload = token.split(".")[1];
     const destructuracion = atob(payload);
-    const userImage = JSON.parse(destructuracion).userImage;
+    const logedUserImage:string = JSON.parse(destructuracion).userImage;
 
     const logout = () => {
         localStorage.clear();
@@ -29,7 +28,7 @@ export default function NavBarLoged () {
                 <div className='flex gap-4 items-center justify-between'>
                     <Link to='/NewPost' className='hover:underline hover:text-white font-semibold text-[rgb(59,73,223)] hover:bg-[rgb(59,73,223)] rounded-md py-2 px-3 border border-1 border-[rgb(59,73,223)]'>Create Post</Link>
                     <BellSvg className='text-4xl p-2 hover:bg-indigo-300/30 rounded-md'/>
-                    <button onClick={logout}><img src={userImage} alt='userImage' className='rounded-full h-[38px]'/></button>
+                    <button onClick={logout}><img src={logedUserImage} alt='userImage' className='rounded-full h-[38px]'/></button>
                 </div>
             </div>
         </div>

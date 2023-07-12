@@ -4,9 +4,23 @@ import { postsFetch } from "../data/postsFetch";
 
 import PostCardContent from "../components/PostCardContent";
 
+interface intPostList {
+    postAuthorId: string,
+    postAuthor: string,
+    _id: string,
+    postTitle: string,
+    postTags: [],
+    postReadTime: number,
+    postDateDay: string,
+    postDateMonth: string,
+    postContent: string,
+    postImageURL: string,
+    postLikes: {likeCounter: number}
+}
+
 export default function Content () {
     const { postid } = useParams()
-    const [postsList, setPostsList] = useState<any>([])
+    const [postsList, setPostsList] = useState<intPostList[]>([])
     postsFetch(setPostsList)
 
     return (

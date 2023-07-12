@@ -1,6 +1,5 @@
 
 import { Outlet } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom';
 
 import Footer from '../components/Footer';
 import NavBarLoged from '../components/NavBarLoged';
@@ -12,7 +11,6 @@ import Relevant from "../pages/Relevant";
 
 
 export default function Home () {
-    const navigate = useNavigate()
     const token = localStorage.getItem("token") || "";
     if(token === ''){
         window.location.replace("/Login");

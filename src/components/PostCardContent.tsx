@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 interface Props {
     title: string
-    image: string;
+    image?: string;
     date: string;
     authorImage?: string;
     authorName: string;
@@ -17,6 +17,8 @@ interface Props {
     id: string;
     content: string
 }
+
+
 
 export default function PostCardContent (props: Props) {
     const navigate = useNavigate()

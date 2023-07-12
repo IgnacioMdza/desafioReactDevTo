@@ -6,12 +6,12 @@ import { ReactComponent as SaveSvg } from '../assets/save.svg';
 
 interface Props {
     title: string
-    image: string;
+    image?: string;
     date: string;
     authorImage?: string;
     authorName: string;
     readTime: number;
-    tags: [];
+    tags: string[];
     likes: number;
     authorId?: string
     id: string
@@ -33,7 +33,7 @@ export default function PostCardHome (props: Props) {
 
     return (
         <article className='bg-white flex flex-col rounded-lg border'>
-            { props.image
+            { props.image === ''
                 ? <img src={props.image} alt={props.title} className='rounded-t-lg h-[250px] object-cover'/>
                 : null
             }
