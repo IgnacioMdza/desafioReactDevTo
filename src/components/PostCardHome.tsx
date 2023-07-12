@@ -34,8 +34,8 @@ export default function PostCardHome (props: Props) {
     return (
         <article className='bg-white flex flex-col rounded-lg border'>
             { props.image === ''
-                ? <img src={props.image} alt={props.title} className='rounded-t-lg h-[250px] object-cover'/>
-                : null
+                ? null
+                : <img src={props.image} alt={props.title} className='rounded-t-lg h-[250px] object-cover'/>
             }
             <div className='py-5 px-3 flex flex-col gap-1'>
                 <div className='flex gap-2 items-center'>

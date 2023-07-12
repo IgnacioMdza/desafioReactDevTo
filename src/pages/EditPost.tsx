@@ -97,7 +97,7 @@ export default function EditPost () {
                 alert("falló el fetch");
             });
         }
-    if (isLoading) { // ⬅️ si está cargando, mostramos un texto que lo indique
+    if (isLoading) { 
         return (
             null
         );

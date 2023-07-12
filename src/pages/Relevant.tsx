@@ -3,7 +3,7 @@ import { useState } from "react"
 import PostCardHome from "../components/PostCardHome";
 import { postsFetch } from "../data/postsFetch";
 
-interface intPostList {
+interface IntPostRelevance {
     postAuthorId: string,
     postAuthor: string,
     _id: string,
@@ -19,7 +19,7 @@ interface intPostList {
 }
 
 export default function Relevant () {
-    const [postsList, setPostsList] = useState<intPostList[]>([])
+    const [postsList, setPostsList] = useState<IntPostRelevance[]>([])
     postsFetch(setPostsList)
 
     return(

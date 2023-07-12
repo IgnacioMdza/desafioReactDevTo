@@ -26,13 +26,13 @@ export default function AsideLeftHome () {
                     {   termsItemsData.map((item, index) => 
                         <RouteAndTermItem key={`item-${index}`}  route={item.route} icon={item.icon} title={item.title}/> )    }
                 </div>
-                <div className='flex gap-1 p-[7px]'>
-                        <img src={TwitterbSvg} className='p-[5px] h-[36px] hover:bg-indigo-300/25 rounded-md'/>
-                        <img src={FacebookSvg} className='p-[5px] h-[36px] hover:bg-indigo-300/25 rounded-md'/>
-                        <img src={GithubSvg} className='p-[5px] h-[36px] hover:bg-indigo-300/25 rounded-md'/>
-                        <img src={InstagramSvg} className='p-[5px] h-[36px] hover:bg-indigo-300/25 rounded-md'/>
-                        <img src={TwitchSvg} className='p-[5px] h-[36px] hover:bg-indigo-300/25 rounded-md'/>
-                        <img src={MastodonSvg} className='p-[5px] h-[36px] hover:bg-indigo-300/25 rounded-md'/>
+                <div className='flex justify-between p-[7px] w-full'>
+                        <img src={TwitterbSvg} className='p-[4px] h-[32px] hover:bg-indigo-300/25 rounded-md'/>
+                        <img src={FacebookSvg} className='p-[4px] h-[32px] hover:bg-indigo-300/25 rounded-md'/>
+                        <img src={GithubSvg} className='p-[4px] h-[32px] hover:bg-indigo-300/25 rounded-md'/>
+                        <img src={InstagramSvg} className='p-[4px] h-[32px] hover:bg-indigo-300/25 rounded-md'/>
+                        <img src={TwitchSvg} className='p-[4px] h-[32px] hover:bg-indigo-300/25 rounded-md'/>
+                        <img src={MastodonSvg} className='p-[4px] h-[32px] hover:bg-indigo-300/25 rounded-md'/>
                 </div>
                 <div>
                     <div className='flex justify-between items-center p-[7px]'>

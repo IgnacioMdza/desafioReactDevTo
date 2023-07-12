@@ -30,7 +30,7 @@ export default function Home () {
                         <section className='flex flex-col gap-3'>
                             <div className='flex gap-1'>
                                 { location.pathname === '/' || location.pathname === '/Relevant'
-                                ? <RLTLink toRoute='/Relevant' text='Relevant' isLocated/>
+                                ? <RLTLink toRoute='/Relevant' text='Relevant' isLocated/> 
                                 : <RLTLink toRoute='/Relevant' text='Relevant' isLocated={false}/> }
                                 { location.pathname === '/Latest'
                                 ? <RLTLink toRoute='/Latest' text='Latest' isLocated/>

@@ -7,6 +7,7 @@ interface Props {
 }
 
 export default function RLTLink (props: Props) {
+
     return(
         <>
             { props.isLocated
