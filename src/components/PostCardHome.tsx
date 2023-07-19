@@ -17,10 +17,12 @@ interface Props {
     id: string
 }
 
-// userAuthor.userImage
+interface intUser {
+    userImage: string;
+}
 
 export default function PostCardHome (props: Props) {
-    const [userAuthor, setUserAuthor] = useState<any>([])
+    const [userAuthor, setUserAuthor] = useState<intUser>({} as intUser)
 
     useEffect(() => {
         fetch(`http://localhost:8080/users/${props.authorId}`)

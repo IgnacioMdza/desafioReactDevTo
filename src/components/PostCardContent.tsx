@@ -17,13 +17,15 @@ interface Props {
     id: string;
     content: string
 }
-
+interface intUser {
+    userImage: string;
+}
 
 
 export default function PostCardContent (props: Props) {
     const navigate = useNavigate()
     const { postid } = useParams()
-    const [userAuthor, setUserAuthor] = useState<any>([])
+    const [userAuthor, setUserAuthor] = useState<intUser>({} as intUser)
 
     const token = localStorage.getItem("token") || "";
     const payload = token.split(".")[1];
@@ -62,7 +64,7 @@ export default function PostCardContent (props: Props) {
             <div className='py-5 px-3 flex flex-col gap-4 md:px-5 lg:px-10'>
                 <div className='flex gap-2 items-center justify-between'>
                     <div className='flex gap-2'>
-                        <img src={userAuthor.userImage} className='rounded-full h-9 w-9 border border-neutral-400 object-cover'/>
+                        <img src={userAuthor?.userImage} className='rounded-full h-9 w-9 border border-neutral-400 object-cover'/>
                         <div className='flex flex-col items-start'>
                             <button className='font-semibold text-sm hover:bg-neutral-400/10 rounded-md '>{props.authorName}</button>
                             <p className='text-xs'>Posted on {props.date}</p>

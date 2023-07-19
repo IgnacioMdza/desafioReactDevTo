@@ -67,8 +67,8 @@ export default function EditPost () {
             if(data.postContent === '') { data.postContent = post.postContent }
             if(data.postImageURL === '') { data.postImageURL = post.postImageURL }
             if(data.postTitle === '') { data.postTitle = post.postTitle  }
-            if(data.postTags === null) { data.postTags = post.postTags.join(' ') }
-            if(data.postReadTime === null) { data.postReadTime = post.postReadTime }
+            if(data.postTags === '') { data.postTags = post.postTags.join(' ') }
+            if(!data.postReadTime) { data.postReadTime = post.postReadTime }
 
             fetch(`http://localhost:8080/posts/${postid}`, {
             method: 'PATCH',
