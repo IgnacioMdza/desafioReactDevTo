@@ -1,17 +1,19 @@
 
 import { Outlet } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 import Footer from '../components/Footer';
 import NavBarLoged from '../components/NavBarLoged';
 import AsideLeftHome from "../components/AsideLeftHome";
-import RLTLink from "../components/RLTLink";
+// import RLTLink from "../components/RLTLink";
 import AsideRightHome from "../components/AsideRightHome";
 
 import Relevant from "../pages/Relevant";
 
-
 export default function Home () {
     const token = localStorage.getItem("token") || "";
+    const navigate = useNavigate()
     if(token === ''){
         window.location.replace("/Login");
     } else {
@@ -29,19 +31,30 @@ export default function Home () {
                         </aside>
                         <section className='flex flex-col gap-3'>
                             <div className='flex gap-1'>
+                                <div>
                                 { location.pathname === '/' || location.pathname === '/Relevant'
-                                ? <RLTLink toRoute='/Relevant' text='Relevant' isLocated/> 
-                                : <RLTLink toRoute='/Relevant' text='Relevant' isLocated={false}/> }
+                                ? <button onClick={()=> navigate('/Relevant')} className='font-bold p-2 text-lg hover:bg-white rounded-md hover:text-[rgb(59,73,223)]'>Relevant</button>
+                                : <button onClick={()=> navigate('/Relevant')} className='p-2 text-lg hover:bg-white rounded-md hover:text-[rgb(59,73,223)]'>Relevant</button>
+                                }
+                                </div>
+                                <div>
                                 { location.pathname === '/Latest'
-                                ? <RLTLink toRoute='/Latest' text='Latest' isLocated/>
-                                : <RLTLink toRoute='/Latest' text='Latest' isLocated={false}/> }
+                                ? <button onClick={()=> navigate('/Latest')} className='font-bold p-2 text-lg hover:bg-white rounded-md hover:text-[rgb(59,73,223)]'>Latest</button>
+                                : <button onClick={()=> navigate('/Latest')} className='p-2 text-lg hover:bg-white rounded-md hover:text-[rgb(59,73,223)]'>Latest</button>
+                                }
+                                </div>
+                                <div>
                                 { location.pathname === '/Top'
-                                ? <RLTLink toRoute='/Top' text='Top' isLocated/>
-                                : <RLTLink toRoute='Top' text='Top' isLocated={false}/> }
+                                ? <button onClick={()=> navigate('/Top')} className='font-bold p-2 text-lg hover:bg-white rounded-md hover:text-[rgb(59,73,223)]'>Top</button>
+                                : <button onClick={()=> navigate('/Top')} className='p-2 text-lg hover:bg-white rounded-md hover:text-[rgb(59,73,223)]'>Top</button>
+                                }
+                                </div>
                             </div>
-                            {   location.pathname === '/'
+                            {   
+                                location.pathname === '/'
                                 ? <Relevant/>
-                                : <Outlet/> }
+                                : <Outlet/> 
+                            }
                         </section>
                         <aside className='hidden lg:table-column'>
                             <div className='flex flex-col gap-4'>
