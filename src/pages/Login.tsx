@@ -21,7 +21,7 @@ export default function Login () {
     const { handleSubmit, register, formState: { errors } } = useForm<LoginData>();
 
     function onSubmit( data: LoginData ) {
-        fetch("http://localhost:8080/auth", {
+        fetch("https://api-25-ebs.ignaciomdza.dev/auth", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

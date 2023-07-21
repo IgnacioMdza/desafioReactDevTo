@@ -37,7 +37,7 @@ export default function Register () {
 
     function onSubmit( data: RegisterData ){
         if (data.userPasswordConfirm === data.userPassword) {
-                fetch("http://localhost:8080/users", {
+                fetch("https://api-25-ebs.ignaciomdza.dev/users", {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

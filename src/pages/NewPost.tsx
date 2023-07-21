@@ -14,6 +14,7 @@ import { ReactComponent as ListDSvg } from '../assets/newPost/listD.svg';
 import { ReactComponent as HSvg } from '../assets/newPost/hSvg.svg';
 import { ReactComponent as MarksSvg } from '../assets/newPost/marks.svg';
 import { ReactComponent as FrameSvg } from '../assets/newPost/frame.svg';
+import PostCardContent from '../components/PostCardContent';
 
 interface NewPost {
     postAuthorId: string,
@@ -22,6 +23,7 @@ interface NewPost {
     postTitle: string,
     postTags: string,
     postReadTime: number,
+    postDate: Date,
     postDateDay: string,
     postDateMonth: string,
     postContent: string,
@@ -55,10 +57,11 @@ export default function NewPost () {
                 postDateDay: new Date().toDateString().split(" ").slice(2, 3)[0],
                 postDateMonth: new Date().toDateString().split(" ").slice(1, 2)[0],
                 postImageURL: data.postImageURL,
-                postReadTime: data.postReadTime,
+                postReadTime: Math.round((data.postContent.length * 0.1)/60),
                 postRelevance: Math.ceil(Math.random() * 10),
                 postTags: data.postTags.split(" ").slice(0, 4),
                 postTitle: data.postTitle,
+                postDate: new Date()
             }),
             })
             .then((response) => response.json())
@@ -106,13 +109,13 @@ export default function NewPost () {
                             {...register('postImageURL', { required: {value: true, message: 'URL de imagen requerida'}})}
                             />
                             { errors.postImageURL && <p className='text-red-500 text-sm'>{ errors.postImageURL.message }</p>}
-                            <input
+                            {/* <input
                             type="number"
                             placeholder='Read time on minutes'
                             className="outline-none bg-white border-b border-neutral-300 rounded text-black w-full pt-4 placeholder-neutral-500"
                             {...register('postReadTime', { required: {value: true, message: 'Tiempo de lectura requerido'}})}
                             />
-                            { errors.postReadTime && <p className='text-red-500 text-sm'>{ errors.postReadTime.message }</p>}
+                            { errors.postReadTime && <p className='text-red-500 text-sm'>{ errors.postReadTime.message }</p>} */}
                             <input
                             type="text"
                             placeholder='New post title here...'

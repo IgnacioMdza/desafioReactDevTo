@@ -24,6 +24,7 @@ interface IntEditPost {
     postTitle: string,
     postTags: any,
     postReadTime: number,
+    postDate: Date,
     postDateDay: string,
     postDateMonth: string,
     postContent: string,
@@ -40,7 +41,7 @@ export default function EditPost () {
     console.log(postid)
 
     useEffect(() => {
-        fetch(`http://localhost:8080/posts/${postid}`)
+        fetch(`https://api-25-ebs.ignaciomdza.dev/posts/${postid}`)
         .then(response => response.json())
         .then(response => {
             setPost(response.data);
@@ -68,9 +69,8 @@ export default function EditPost () {
             if(data.postImageURL === '') { data.postImageURL = post.postImageURL }
             if(data.postTitle === '') { data.postTitle = post.postTitle  }
             if(data.postTags === '') { data.postTags = post.postTags.join(' ') }
-            if(!data.postReadTime) { data.postReadTime = post.postReadTime }
 
-            fetch(`http://localhost:8080/posts/${postid}`, {
+            fetch(`https://api-25-ebs.ignaciomdza.dev/posts/${postid}`, {
             method: 'PATCH',
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
             body: JSON.stringify({
@@ -79,12 +79,12 @@ export default function EditPost () {
                 postRelevance: Math.ceil(Math.random() * 10),
                 postDateDay: new Date().toDateString().split(" ").slice(2, 3)[0],
                 postDateMonth: new Date().toDateString().split(" ").slice(1, 2)[0],
-
+                postDate: new Date(),
                 postContent: data.postContent,
                 postImageURL: data.postImageURL,
                 postTitle: data.postTitle,
                 postTags: data.postTags.split(" ").slice(0, 4),
-                postReadTime: data.postReadTime,
+                postReadTime: Math.round((data.postContent.length * 0.1)/60),
             }),
             })
             .then((response) => response.json())

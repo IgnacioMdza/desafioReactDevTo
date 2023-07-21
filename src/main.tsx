@@ -14,6 +14,7 @@ import NewPost from './pages/NewPost'
 import Post from './layouts/Post'
 import Content from './pages/Content'
 import EditPost from './pages/EditPost'
+import Search from './pages/Search'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: '/Top',
         element: <Top/>
+      },
+      {
+        path: '/Search/:searchWords',
+        element: <Search/>
       }
     ]
   },

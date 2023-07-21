@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -26,14 +27,18 @@ export default function PostCardContent (props: Props) {
     const navigate = useNavigate()
     const { postid } = useParams()
     const [userAuthor, setUserAuthor] = useState<intUser>({} as intUser)
+    let postAuthorId= ''
 
-    const token = localStorage.getItem("token") || "";
-    const payload = token.split(".")[1];
-    const destructuracion = atob(payload);
-    const postAuthorId = JSON.parse(destructuracion).id;
+    const token = localStorage.getItem("token") || ''
+    if (token != ''){
+        const payload = token.split(".")[1]
+        const destructuracion = atob(payload)
+        postAuthorId = JSON.parse(destructuracion).id
+    }
+    
 
     function deletePost () {
-        fetch(`http://localhost:8080/posts/${postid}`, {
+        fetch(`https://api-25-ebs.ignaciomdza.dev/posts/${postid}`, {
         method: 'DELETE',
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         })
@@ -49,7 +54,7 @@ export default function PostCardContent (props: Props) {
     }
 
     useEffect(() => {
-        fetch(`http://localhost:8080/users/${props.authorId}`)
+        fetch(`https://api-25-ebs.ignaciomdza.dev/users/${props.authorId}`)
         .then(response => response.json())
         .then(response => {
             setUserAuthor(response.data);
@@ -70,19 +75,21 @@ export default function PostCardContent (props: Props) {
                             <p className='text-xs'>Posted on {props.date}</p>
                         </div>
                     </div>
-                    <div className='flex gap-2'>
-                        {
-                            postAuthorId === props.authorId
-                            ? <Link to={`/EditPost/${props.id}`} className='bg-[rgb(240,240,240)] py-1 px-4 rounded-md text-black border border-[rgb(59,73,223)] hover:bg-[rgb(59,73,223)] hover:text-white'>Edit</Link>
-                            :  null
-                        }
-                        {
-                            postAuthorId === props.authorId
-                            ? <button onClick={deletePost} className='bg-[rgb(240,240,240)] py-1 px-2 rounded-md text-black border border-red-700 hover:bg-red-700 hover:text-white'>Delete</button>
-                            :  null
-                        }
-                    </div>
-                    
+                    {   token != ''
+                            ?   <div className='flex gap-2'>
+                                    {
+                                        postAuthorId === props.authorId
+                                        ? <Link to={`/EditPost/${props.id}`} className='bg-[rgb(240,240,240)] py-1 px-4 rounded-md text-black border border-[rgb(59,73,223)] hover:bg-[rgb(59,73,223)] hover:text-white'>Edit</Link>
+                                        :  null
+                                    }
+                                    {   
+                                        postAuthorId === props.authorId
+                                        ? <button onClick={deletePost} className='bg-[rgb(240,240,240)] py-1 px-2 rounded-md text-black border border-red-700 hover:bg-red-700 hover:text-white'>Delete</button>
+                                        :  null
+                                    }
+                                </div>
+                            :   null
+                    }
                 </div>
                 <div className=' flex gap-6 items-center'>
                     <button className='flex items-center'>

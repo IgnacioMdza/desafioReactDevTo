@@ -25,7 +25,7 @@ export default function PostCardHome (props: Props) {
     const [userAuthor, setUserAuthor] = useState<intUser>({} as intUser)
 
     useEffect(() => {
-        fetch(`http://localhost:8080/users/${props.authorId}`)
+        fetch(`https://api-25-ebs.ignaciomdza.dev/users/${props.authorId}`)
         .then(response => response.json())
         .then(response => {
             setUserAuthor(response.data);
