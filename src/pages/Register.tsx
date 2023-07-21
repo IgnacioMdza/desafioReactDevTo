@@ -54,7 +54,7 @@ export default function Register () {
             })
             .then((response) => response.json())
             .then(() => {
-                fetch("http://localhost:8080/auth", {
+                fetch("https://api-25-ebs.ignaciomdza.dev/auth", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
