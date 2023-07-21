@@ -14,7 +14,6 @@ import { ReactComponent as ListDSvg } from '../assets/newPost/listD.svg';
 import { ReactComponent as HSvg } from '../assets/newPost/hSvg.svg';
 import { ReactComponent as MarksSvg } from '../assets/newPost/marks.svg';
 import { ReactComponent as FrameSvg } from '../assets/newPost/frame.svg';
-import PostCardContent from '../components/PostCardContent';
 
 interface NewPost {
     postAuthorId: string,
