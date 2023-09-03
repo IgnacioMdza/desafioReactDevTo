@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-import { postsFetch } from "../data/postsFetch";
 
 import PostCardContent from "../components/PostCardContent";
 
@@ -21,7 +20,14 @@ interface intPostList {
 export default function Content () {
     const { postid } = useParams()
     const [postsList, setPostsList] = useState<intPostList[]>([])
-    postsFetch(setPostsList)
+    useEffect(() => {
+        // fetch('https://api-25-ebs.ignaciomdza.dev/posts')
+        fetch('https://localhost:8080/posts')
+            .then(response => response.json())
+            .then(response => {
+                setPostsList(response.data);
+            })
+    }, [])
 
     return (
         <>

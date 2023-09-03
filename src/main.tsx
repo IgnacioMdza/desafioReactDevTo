@@ -15,6 +15,7 @@ import Post from './layouts/Post'
 import Content from './pages/Content'
 import EditPost from './pages/EditPost'
 import Search from './pages/Search'
+import MexicoSelects from './pages/MexicoSelects'
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
   {
     path:'EditPost/:postid',
     element: <EditPost/>
+  },
+  {
+    path:'/MexicoSelects',
+    element: <MexicoSelects/>
   }
 ])
 

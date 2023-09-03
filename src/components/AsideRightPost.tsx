@@ -1,8 +1,7 @@
 
 import AuthorCard from "./AuthorCard"
 import { useParams } from "react-router-dom"
-import { useState } from "react"
-import { postsFetch } from "../data/postsFetch"
+import { useState, useEffect } from "react"
 import MoreFrom from "./MoreFrom"
 
 interface intPostList {
@@ -16,7 +15,14 @@ interface intPostList {
 export default function AsideRightPost () {
     const { postid } = useParams()
     const [postsList, setPostsList] = useState<intPostList[]>([])
-    postsFetch(setPostsList)
+    useEffect(() => {
+        // fetch('https://api-25-ebs.ignaciomdza.dev/posts')
+        fetch('https://localhost:8080/posts')
+            .then(response => response.json())
+            .then(response => {
+                setPostsList(response.data);
+            })
+    }, [])
 
     return (
         <>

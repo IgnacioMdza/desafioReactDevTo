@@ -19,9 +19,10 @@ export default function AuthorCard (props: Props) {
     const [userAuthor, setUserAuthor] = useState<intUser>({} as intUser)
 
     useEffect(() => {
-        fetch(`https://api-25-ebs.ignaciomdza.dev/users/${props.authorId}`)
-        .then(response => response.json())
-        .then(response => {
+        // fetch(`https://api-25-ebs.ignaciomdza.dev/users/${props.authorId}`)
+        fetch(`https://localhost:8080/users/${props.authorId}`)
+            .then(response => response.json())
+            .then(response => {
             setUserAuthor(response.data);
         })
     }, [props.authorId])

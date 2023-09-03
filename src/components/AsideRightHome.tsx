@@ -1,10 +1,8 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { ReactComponent as ElipsisSvg } from '../assets/elipsis.svg';
-
-import { postsFetch } from "../data/postsFetch";
 
 interface intPostList {
     postReadTime: number,
@@ -19,7 +17,14 @@ interface intPostList {
 
 export default function AsideRightHome () {
     const [postsList, setPostsList] = useState<intPostList[]>([])
-    postsFetch(setPostsList)
+    useEffect(() => {
+        //fetch('https://api-25-ebs.ignaciomdza.dev/posts')
+        fetch('https://localhost:8080/posts')    
+            .then(response => response.json())
+            .then(response => {
+                setPostsList(response.data);
+            })
+    }, [])
 
     // const topPost = [...postsList].sort(function(a, b) {return a.postReadTime - b.postReadTime}).shift()
     // const iaPosts = postsList.filter(item => item.postTags.find(element => element === 'ia'))

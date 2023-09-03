@@ -1,9 +1,8 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
 
 import PostCardHome from "../components/PostCardHome";
 import { useParams } from "react-router-dom"
-import { postsFetch } from "../data/postsFetch";
 
 interface IntPostRelevance {
     postAuthorId: string,
@@ -23,7 +22,14 @@ interface IntPostRelevance {
 export default function Search () {
     const { searchWords } = useParams()
     const [postsList, setPostsList] = useState<IntPostRelevance[]>([])
-    postsFetch(setPostsList)
+    useEffect(() => {
+        // fetch('https://api-25-ebs.ignaciomdza.dev/posts')
+        fetch('https://localhost:8080/posts')
+            .then(response => response.json())
+            .then(response => {
+                setPostsList(response.data);
+            })
+    }, [])
     console.log(searchWords)
     const filterWords : string = searchWords?.split("-").join(" ").toLowerCase() ?? ''
 
