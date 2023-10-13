@@ -21,7 +21,7 @@ export default function Latest () {
     const [postsList, setPostsList] = useState<IntPostLatest[]>([])
     useEffect(() => {
         //fetch('https://api-25-ebs.ignaciomdza.dev/posts')
-        fetch('https://localhost:8080/posts')
+        fetch('http://localhost:8080/posts')
             .then(response => response.json())
             .then(response => {
                 setPostsList(response.data);

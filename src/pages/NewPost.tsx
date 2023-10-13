@@ -47,7 +47,7 @@ export default function NewPost () {
     
         function onSubmit( data: NewPost ){
             // fetch("https://api-25-ebs.ignaciomdza.dev/posts", {
-            fetch("https://localhost:8080/posts", {
+            fetch("http://localhost:8080/posts", {
             method: 'POST',
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
             body: JSON.stringify({

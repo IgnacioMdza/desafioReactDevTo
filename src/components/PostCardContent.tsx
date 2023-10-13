@@ -39,7 +39,7 @@ export default function PostCardContent (props: Props) {
 
     function deletePost () {
         // fetch(`https://api-25-ebs.ignaciomdza.dev/posts/${postid}`, {
-        fetch(`https://localhost:8080/posts/${postid}`, {
+        fetch(`http://localhost:8080/posts/${postid}`, {
         method: 'DELETE',
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         })
@@ -56,7 +56,7 @@ export default function PostCardContent (props: Props) {
 
     useEffect(() => {
         // fetch(`https://api-25-ebs.ignaciomdza.dev/users/${props.authorId}`)
-        fetch(`https://localhost:8080/users/${props.authorId}`)
+        fetch(`http://localhost:8080/users/${props.authorId}`)
         .then(response => response.json())
         .then(response => {
             setUserAuthor(response.data);

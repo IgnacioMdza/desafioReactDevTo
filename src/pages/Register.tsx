@@ -38,7 +38,7 @@ export default function Register () {
     function onSubmit( data: RegisterData ){
         if (data.userPasswordConfirm === data.userPassword) {
                 //fetch("https://api-25-ebs.ignaciomdza.dev/users", {
-                fetch("https://localhost:8080/users", {
+                fetch("http://localhost:8080/users", {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -56,7 +56,7 @@ export default function Register () {
             .then((response) => response.json())
             .then(() => {
                 // fetch("https://api-25-ebs.ignaciomdza.dev/auth", {
-                fetch("https://localhost:8080/auth", {
+                fetch("http://localhost:8080/auth", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({

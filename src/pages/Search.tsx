@@ -24,7 +24,7 @@ export default function Search () {
     const [postsList, setPostsList] = useState<IntPostRelevance[]>([])
     useEffect(() => {
         // fetch('https://api-25-ebs.ignaciomdza.dev/posts')
-        fetch('https://localhost:8080/posts')
+        fetch('http://localhost:8080/posts')
             .then(response => response.json())
             .then(response => {
                 setPostsList(response.data);

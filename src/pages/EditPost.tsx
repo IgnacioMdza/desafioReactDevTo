@@ -42,7 +42,7 @@ export default function EditPost () {
 
     useEffect(() => {
         // fetch(`https://api-25-ebs.ignaciomdza.dev/posts/${postid}`)
-        fetch(`https://localhost:8080/posts/${postid}`)
+        fetch(`http://localhost:8080/posts/${postid}`)
         .then(response => response.json())
         .then(response => {
             setPost(response.data);
@@ -72,7 +72,7 @@ export default function EditPost () {
             if(data.postTags === '') { data.postTags = post.postTags.join(' ') }
 
             // fetch(`https://api-25-ebs.ignaciomdza.dev/posts/${postid}`, {
-            fetch(`https://localhost:8080/posts/${postid}`, {
+            fetch(`http://localhost:8080/posts/${postid}`, {
             method: 'PATCH',
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
             body: JSON.stringify({
